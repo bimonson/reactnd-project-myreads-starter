@@ -8,23 +8,27 @@ class Book extends Component {
   }
 
   render() {
+    const imgUrl = this.props.book.imageLinks ? this.props.book.imageLinks.thumbnail : '';
+    const authors = this.props.book.authors && this.props.book.authors.join(' | ');
     return (
-      <li>
-        <div className="book">
-          <div className="book-top">
-            <div className="book-cover"
-              style={{
-                width: 128,
-                height: 192,
-                backgroundImage: 'url("http://books.google.com/books/content?id=32haAAAAMAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72yckZ5f5bDFVIf7BGPbjA0KYYtlQ__nWB-hI_YZmZ-fScYwFy4O_fWOcPwf-pgv3pPQNJP_sT5J_xOUciD8WaKmevh1rUR-1jk7g1aCD_KeJaOpjVu0cm_11BBIUXdxbFkVMdi&source=gbs_api")'
-              }}>
-            </div>
-            <Changer/>
+      <div className="book">
+        <div className="book-top">
+          <div className="book-cover"
+            style={{
+              width: 128,
+              height: 192,
+              backgroundImage: `url("${imgUrl}")`
+            }}>
           </div>
-          <div className="book-title">The Adventures of Tom Sawyer</div>
-          <div className="book-authors">Mark Twain</div>
+          <Changer
+            changeShelf = {this.props.changeShelf}
+            currentShelf = {this.props.book.shelf}
+            book = {this.props.book}
+          />
         </div>
-      </li>
+        <div className="book-title">{this.props.book.title}</div>
+        <div className="book-authors">{authors}</div>
+      </div>
     )
   }
 }
