@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
-import BookShelf from './components/BookShelf'
+import BookCase from './components/BookCase'
+
 
 class BooksApp extends Component {
   state = {
+    books: [],
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -14,23 +16,30 @@ class BooksApp extends Component {
     showSearchPage: false
   }
 
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books })
+    })
+  }
+  // Update the books on shelves
+  changeShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf)
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books })
+    })
+  }
+
+
+
+
   render() {
+
+
     return (
-      <div className="app">
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                <BookShelf/>
-              </div>
-            </div>
-            <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-            </div>
-          </div>
-      </div>
+      <BookCase
+        books={this.state.books}
+        changeShelf={this.changeShelf}
+      />
     )
   }
 }
