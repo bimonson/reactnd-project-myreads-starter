@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import BooksApp from '../App'
 import * as BooksAPI from '../BooksAPI'
+import Book from './Book'
 
 class Search extends Component {
   state = {
     query: '',
-    results: []
+    books: []
   }
 
   queryTimer = null;
@@ -21,15 +21,15 @@ class Search extends Component {
   updateSearch = (q) => {
     if(q) {
       BooksAPI.search(q)
-        .then(results => {
+        .then(books => {
           // Sets results to empty on error
-          if(results.error) {
-            this.setState({results: []})
-          } else {this.setState({results}) //Sets results retrieved from BooksAPI
+          if(books.error) {
+            this.setState({books: []})
+          } else {this.setState({books}) //Sets results retrieved from BooksAPI
         }
       })
-    } else {this.setState({resluts: []})}
-    console.log(this.state.results)
+    } else {this.setState({books: []})}
+    console.log(this.state.books)
   }
 
   render() {
@@ -58,7 +58,17 @@ class Search extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid"></ol>
+          <ol className="books-grid">
+            {this.state.books && this.state.books
+              .map(book => (
+                <li key={book.id}>
+                  <Book
+                    book={book}
+                    changeShelf={this.props.changeShelf}
+                  />
+                </li>
+              ))}
+          </ol>
         </div>
       </div>
     )
