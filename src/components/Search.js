@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-// import * as BooksAPI from './BooksAPI'
+import BooksApp from '../App'
+import * as BooksAPI from '../BooksAPI'
 
 class Search extends Component {
   state = {
@@ -10,11 +11,25 @@ class Search extends Component {
 
   queryTimer = null;
 
-  changeQuery = (value) => {
+  changeQuery = (query) => {
     // Update the query then wait a quarter second to update search
     clearTimeout(this.queryTimer);
-    this.setState({query: value});
-    this.queryTimer = setTimeout(this.updateQuery, 250);
+    this.setState({query});
+    this.queryTimer = setTimeout(this.updateSearch(query), 250);
+  }
+
+  updateSearch = (q) => {
+    if(q) {
+      BooksAPI.search(q)
+        .then(results => {
+          // Sets results to empty on error
+          if(results.error) {
+            this.setState({results: []})
+          } else {this.setState({results}) //Sets results retrieved from BooksAPI
+        }
+      })
+    } else {this.setState({resluts: []})}
+    console.log(this.state.results)
   }
 
   render() {
