@@ -27,7 +27,6 @@ class BookCase extends Component {
       shelves = this.filterShelf();
 
     return (
-      <div className="app">
         <div className="list-books">
           <div className="list-books-title">
             <h1>MyReads</h1>
@@ -45,7 +44,6 @@ class BookCase extends Component {
             <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
           </div>
         </div>
-      </div>
     )
   }
 }
