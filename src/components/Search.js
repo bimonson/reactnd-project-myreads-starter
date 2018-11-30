@@ -8,6 +8,15 @@ class Search extends Component {
     results: []
   }
 
+  queryTimer = null;
+
+  changeQuery = (value) => {
+    // Update the query then wait a quarter second to update search
+    clearTimeout(this.queryTimer);
+    this.setState({query: value});
+    this.queryTimer = setTimeout(this.updateQuery, 250);
+  }
+
   render() {
     return(
       <div className="search-books">
