@@ -9,28 +9,57 @@ class Search extends Component {
     books: []
   }
 
-  queryTimer = null;
+  queryTimer = null
 
   changeQuery = (query) => {
     // Update the query then wait a quarter second to update search
-    clearTimeout(this.queryTimer);
-    this.setState({query});
-    this.queryTimer = setTimeout(this.updateSearch(query), 250);
+    clearTimeout(this.queryTimer)
+    this.setState({query})
+    this.queryTimer = setTimeout(this.updateSearch, 250)
   }
 
-  updateSearch = (q) => {
-    if(q) {
-      BooksAPI.search(q)
-        .then(books => {
-          // Sets results to empty on error
-          if(books.error) {
-            this.setState({books: []})
-          } else {this.setState({books}) //Sets results retrieved from BooksAPI
-        }
-      })
-    } else {this.setState({books: []})}
-    console.log(this.state.books)
+  checkShelf = (shelf, results) => {
+    // For each search result check if it's already been assigned a shelf
+    const hashTable = {}
+    shelf.forEach(book => hashTable[book.id] = book.shelf)
+    results.forEach(book => {
+      book.shelf = hashTable[book.id] || 'none'
+    })
+    return results
   }
+
+  updateSearch = () => {
+    if(this.state.query === '') {
+      this.setState({error: false, books: []})
+      return
+    }
+    BooksAPI.search(this.state.query)
+      .then(response => {
+        let searchResults = []
+        let searchError = false
+        if(response === undefined || (response.error && response.error !== 'empty query')) {
+          searchError = true
+        } else if (response.length) {
+          searchResults = this.checkShelf(this.props.selectedBooks, response)
+        }
+        this.setState({error: searchError, books: searchResults})
+        console.log(searchResults)
+      })
+  }
+
+  // updateSearch = (q) => {
+  //   if(q) {
+  //     BooksAPI.search(q)
+  //       .then(books => {
+  //         // Sets results to empty on error
+  //         if(books.error) {
+  //           this.setState({books: []})
+  //         } else {this.setState({books}) //Sets results retrieved from BooksAPI
+  //       }
+  //     })
+  //   } else {this.setState({books: []})}
+  //   console.log(this.state.books)
+  // }
 
   render() {
     return(

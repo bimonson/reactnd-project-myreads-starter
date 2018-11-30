@@ -48,7 +48,7 @@ class BooksApp extends Component {
         )}/>
         <Route path="/search" render={() => (
           <Search
-            books={this.state.books}
+            selectedBooks={this.state.books}
             changeShelf={this.changeShelf}
           />
         )}/>
