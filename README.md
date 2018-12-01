@@ -102,4 +102,5 @@ I'm extremely grateful for the knowledge, guidance and insight of the following 
 * [My Reads / React Zoom Study Session w/ Doug Brown](https://www.youtube.com/watch?v=OcL7-7cRpkQ&feature=youtu.be)
 * [(Udacity) Project 6 My-Reads Walk Through](https://www.youtube.com/watch?v=bpKI3R0nf7E)
 * [Front-end Problem Solving and Debugging Skills with Cameron Pittman](https://www.youtube.com/watch?v=vftSDWcA6to)
+* [Project 6 Outline / Checklist for Udacity's Front-End Web Developer Nanodegree](https://gist.github.com/JamesDBartlett/6dd9c98d9a92122f516716464f9238db)
 * [How to implement a simple hash table in JavaScript](https://medium.freecodecamp.org/how-to-implement-a-simple-hash-table-in-javascript-cb3b9c1f2997)
