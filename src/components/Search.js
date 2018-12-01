@@ -18,14 +18,14 @@ class Search extends Component {
     this.queryTimer = setTimeout(this.updateSearch, 250)
   }
 
-  checkShelf = (shelf, results) => {
-    // For each search result check if it's already been assigned a shelf
+  checkShelf = (shelf, books) => {
+    // For each search result check if it's already been assigned to a shelf
     const hashTable = {}
     shelf.forEach(book => hashTable[book.id] = book.shelf)
-    results.forEach(book => {
+    books.forEach(book => {
       book.shelf = hashTable[book.id] || 'none'
     })
-    return results
+    return books
   }
 
   updateSearch = () => {
@@ -35,31 +35,14 @@ class Search extends Component {
     }
     BooksAPI.search(this.state.query)
       .then(response => {
-        let searchResults = []
         let searchError = false
         if(response === undefined || (response.error && response.error !== 'empty query')) {
           searchError = true
         } else if (response.length) {
-          searchResults = this.checkShelf(this.props.selectedBooks, response)
+          this.setState({error: searchError, books: response})
         }
-        this.setState({error: searchError, books: searchResults})
-        console.log(searchResults)
       })
   }
-
-  // updateSearch = (q) => {
-  //   if(q) {
-  //     BooksAPI.search(q)
-  //       .then(books => {
-  //         // Sets results to empty on error
-  //         if(books.error) {
-  //           this.setState({books: []})
-  //         } else {this.setState({books}) //Sets results retrieved from BooksAPI
-  //       }
-  //     })
-  //   } else {this.setState({books: []})}
-  //   console.log(this.state.books)
-  // }
 
   render() {
     return(
@@ -88,8 +71,8 @@ class Search extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.state.books && this.state.books
-              .map(book => (
+          {this.checkShelf(this.props.shelvedBooks, this.state.books)
+            .map(book => (
                 <li key={book.id}>
                   <Book
                     book={book}
