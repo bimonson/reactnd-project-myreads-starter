@@ -30,7 +30,7 @@ class Search extends Component {
 
   updateSearch = () => {
     if(this.state.query === '') {
-      this.setState({error: false, books: []})
+      this.setState({books: []})
       return
     }
     BooksAPI.search(this.state.query)
