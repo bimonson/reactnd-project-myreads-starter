@@ -19,14 +19,14 @@ class BooksApp extends Component {
   // Update the books on shelves
   changeShelf = (book, shelf) => {
     BooksAPI.update(book, shelf)
-      .then(() => BooksAPI.getAll())
-      .then(books => this.setState({books}))
-    .catch(error => console.log(error))
-    console.log(this.state.books);
+    .then(() => this.setState((state) => ({
+        books: state.books.concat(state.books.filter((b) => b.id === book.id && b.s !== book.shelf)
+        .map(book => (
+          book.shelf = shelf
+        )))
+      }))
+    )
   }
-
-
-
 
   render() {
 
