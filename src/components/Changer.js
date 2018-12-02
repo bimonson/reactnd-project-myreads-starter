@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 // import * as BooksAPI from './BooksAPI'
+import PropTypes from 'prop-types'
 
 class Changer extends Component {
   state = {
@@ -23,6 +24,12 @@ class Changer extends Component {
       </div>
     )
   }
+}
+
+Changer.propTypes = {
+  changeShelf: PropTypes.func.isRequired,
+  currentShelf: PropTypes.string.isRequired,
+  book: PropTypes.object.isRequired
 }
 
 export default Changer;
