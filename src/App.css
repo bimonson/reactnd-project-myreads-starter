@@ -172,3 +172,23 @@ body, .app {
   text-align: center;
   font-size: 0.8em;
 }
+
+/* page not found */
+
+.pagenotfound {
+  display: flex;
+  flex-direction: column;
+  margin: 0 4rem;
+}
+.pagenotfound-giphy {
+  width:100%;
+  height:0;
+  padding-bottom:43%;
+  position:relative;
+}
+.giphy-embed {
+  width: 100%;
+   height: 100%;
+   position:absolute;
+   border: 0;
+}
