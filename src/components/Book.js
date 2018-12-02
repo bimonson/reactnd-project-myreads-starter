@@ -8,7 +8,7 @@ class Book extends Component {
   }
 
   render() {
-    const imgUrl = this.props.book.imageLinks ? this.props.book.imageLinks.thumbnail : '';
+    const imgUrl = this.props.book.imageLinks ? this.props.book.imageLinks.thumbnail : 'https://dummyimage.com/128x192/f3f3f3/000000.jpg&text=Cover+Missing';
     const authors = this.props.book.authors && this.props.book.authors.join(' | ');
     return (
       <div className="book">
