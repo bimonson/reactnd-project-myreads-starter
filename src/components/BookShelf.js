@@ -31,10 +31,6 @@ class BookShelf extends Component {
   }
 }
 
-// key={shelf.name}
-// shelf={shelf}
-// changeShelf={this.props.changeShelf}
-
 BookShelf.propTypes = {
   shelf: PropTypes.object.isRequired,
   changeShelf: PropTypes.func.isRequired
