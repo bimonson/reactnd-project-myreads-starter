@@ -38,6 +38,8 @@ class Search extends Component {
         let searchError = false
         if(response === undefined || (response.error && response.error !== 'empty query')) {
           searchError = true
+        } else if(response.error) {
+          this.setState({books: []})
         } else if (response.length) {
           this.setState({error: searchError, books: response})
         }
